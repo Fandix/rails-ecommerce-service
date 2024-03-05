@@ -7,6 +7,7 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(current_user, _opts = {})
+    response.set_header('Access-Control-Expose-Headers', 'Authorization')
     render json: {
       status: {
         code: 200, message: 'Logged in successfully.',
