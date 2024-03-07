@@ -12,6 +12,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         status: { code: 200, message: 'Signed up successfully.' },
         data: UserSerializer.new(current_user).serializable_hash[:data][:attributes]
       }
+
+      @user = User.find_by(id: current_user[:id])
+      @user.cart = Cart.new
     else
       render json: {
         status: { message: "User couldn't be created successfully. #{current_user.errors.full_messages.to_sentence}" }
